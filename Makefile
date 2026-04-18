@@ -13,6 +13,8 @@ SRC_FILES_NAMES = main.c
 
 SRC_FILES_NAMES += parser/parse_cli.c
 
+SRC_FILES_NAMES += elf/elf_utils.c
+
 SRC_FILES_NAMES += utils/debug.c
 
 # Full path to .c files
@@ -26,14 +28,15 @@ DEP_FILES := $(OBJ_FILES:.o=.d)
 
 
 #<><><><><><><> Variables <><><><><><><><><><><><><><><><><>
-NAME 	:= woody_woodpacker
-CC 	:= cc
-IFLAGS	:= -I $(INC_DIR) -I $(LIBFT_DIR)/includes/
-CFLAGS 	:= -gdwarf-4 -Wall -Wextra -Werror $(IFLAGS) -MMD -MP -DLOGFILE_PATH=\"$(LOGFILE)\" -g3
-LFLAGS 	:= libft/libft.a 
-MKDIR 	:= mkdir -p
-RM_RF 	:= rm -rf
-ECHO	:= printf '%b\n'
+NAME 		:= woody_woodpacker
+CC 			:= cc
+IFLAGS_ELF  :=  $(shell if [ -f /usr/local/include/elf.h ]; then printf -- '-I/usr/local/include'; fi)
+IFLAGS		:= -I $(INC_DIR) -I $(LIBFT_DIR)/includes/ $(IFLAGS_ELF)
+CFLAGS 		:= -gdwarf-4 -Wall -Wextra -Werror $(IFLAGS) -MMD -MP -DLOGFILE_PATH=\"$(LOGFILE)\" -g3
+LFLAGS 		:= libft/libft.a 
+MKDIR 		:= mkdir -p
+RM_RF 		:= rm -rf
+ECHO		:= printf '%b\n'
 
 BLUE	:= \033[34m
 BROWN	:= \033[33m
